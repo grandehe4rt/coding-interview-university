@@ -17,9 +17,19 @@ var startTime int64
 var endTime int64
 
 func main() {
-	b := &BigONotation{}
-	result := b.addItemToArray(5)
-	fmt.Println(result)
+	testAlgo := NewBigONotation(1_000_000)
+	testAlgo.generateRandomArray()
+
+	testAlgo2 := NewBigONotation(10_000_000)
+	testAlgo2.generateRandomArray()
+
+	testAlgo3 := NewBigONotation(100_000_000)
+	testAlgo3.generateRandomArray()
+	// testAlgo.linearSearchForValue(50)
+	testAlgo.linearSearchForValue(20)
+	testAlgo2.linearSearchForValue(20)
+	testAlgo3.linearSearchForValue(20)
+	// fmt.Println(newArray.addItemToArray(5))
 }
 
 type BigONotation struct {
@@ -36,10 +46,12 @@ func NewBigONotation(size int) *BigONotation {
 	}
 }
 
-func (b *BigONotation) generateRandomArray() {
+func (b *BigONotation) generateRandomArray() []int {
+	// fmt.Println(b.arraySize)
 	for i := 0; i < b.arraySize; i++ {
 		b.theArray[i] = rand.Intn(1000) + 10
 	}
+	return b.theArray
 }
 
 // O(1)
@@ -50,8 +62,11 @@ func (b *BigONotation) addItemToArray(newItem int) []int {
 
 // O(N)
 func (b *BigONotation) linearSearchForValue(value int) {
-	var valueInArray bool = false
-	var indexsWithValues string = ""
+	valueInArray := false
+	indexsWithValues := ""
+
+	// fmt.Println(b.arraySize)
+	// fmt.Println(value)
 
 	startTime = time.Now().UnixMilli()
 
@@ -63,7 +78,8 @@ func (b *BigONotation) linearSearchForValue(value int) {
 	}
 
 	fmt.Println("Value found: ", valueInArray)
+	// fmt.Println("Value found: ", indexsWithValues)
+
 	endTime = time.Now().UnixMilli()
 	fmt.Println("Linear Search Took ", fmt.Sprint(endTime-startTime))
-
 }
